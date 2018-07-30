@@ -152,6 +152,7 @@ already in use in an association list."
              (org-entry-put current-headline "Velocity"
                             (number-to-string velocity)))))))
 
+;;;###autoload
 (defun org-ebs-set-velocity-when-done()
   "Calculate and set velocity using `org-ebs-set-velocity` for the current task if the state has just changed to DONE or equivalent."
   (when (catch 'break
@@ -160,6 +161,5 @@ already in use in an association list."
               (throw 'break t))))
     (org-ebs-set-velocity)))
 
-(add-hook 'org-after-todo-state-change-hook 'org-ebs-set-velocity-when-done)
 
 (provide 'org-ebs)
