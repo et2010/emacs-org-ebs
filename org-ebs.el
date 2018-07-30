@@ -73,6 +73,7 @@ The return value is the new value of LIST-VAR."
                  (org-entry-get current-headline "Velocity")) velocities)))
       velocities)))
 
+;;;###autoload
 (defun org-ebs-get-full-brackets(estimate)
   "For given ESTIMATE, calculate odds of completion in given timeframe.  Return list of numbers representing odds work will be completed at or before each minute.  E.g., returned value of:
 
@@ -102,6 +103,7 @@ means that there is a 23% chance of completion between 0 and 1 minutes, 45 perce
         (push sum full-brackets)))
     (reverse full-brackets)))
 
+;;;###autoload
 (defun org-ebs-get-hours-for-odds(estimate percent)
   (interactive
    "nEnter time estimate (minutes): \nnEnter desired percentage (0-100): ")
