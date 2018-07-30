@@ -4,7 +4,7 @@
 
 ;; Author: Scott Weldon
 ;; Version: 0.0.1
-;; Package-Requires: ((emacs "24"))
+;; Package-Requires: ((emacs "24") (org-plus-contrib))
 ;; Keywords: convenience
 ;; Homepage: https://github.com/et2010/org-ebs
 
@@ -37,6 +37,9 @@
 ;;
 ;; More info:
 ;; https://www.joelonsoftware.com/2007/10/26/evidence-based-scheduling/
+
+
+(require 'org-clock)
 
 (defvar org-ebs-files '())
 
@@ -82,14 +85,14 @@ The return value is the new value of LIST-VAR."
 means that there is a 23% chance of completion between 0 and 1 minutes, 45 percent chance under 2 minutes, 80 percent chance under 3 minutes, and 100 percent chance under 4 minutes."
   (interactive "nEnter time estimate (minutes): ")
   (let* ((velocities (org-ebs-get-all-velocities))
-         (RANDOM-TIMES 200)
-         (pct-per-time (/ 100.0 RANDOM-TIMES))
+         (random-times 200)
+         (pct-per-time (/ 100.0 random-times))
          (brackets '())
          (full-brackets '())
          (sum 0)
          (max-key 0)
          (estimates (org-ebs-get-random-adjusted-estimates estimate velocities
-                                                           RANDOM-TIMES)))
+                                                           random-times)))
     (dolist (element estimates)
       (let ((bracket (floor element)))
         (add-to-list 'brackets `(,bracket . 0) t 'org-ebs-key-used-p)
@@ -126,7 +129,7 @@ means that there is a 23% chance of completion between 0 and 1 minutes, 45 perce
   (let ((random-times (or random-times 100))
         (len (length velocities))
         (estimates '()))
-    (dotimes (i RANDOM-TIMES)
+    (dotimes (i random-times)
       (push (round (/ estimate (nth (random len) velocities))) estimates))
     (setq estimates (sort estimates '<))))
 
@@ -142,7 +145,7 @@ already in use in an association list."
                                     (point))
                                (save-excursion (org-back-to-heading))))
          (effort-prop (org-entry-get current-headline "Effort"))
-         (effort (org-duration-string-to-minutes
+         (effort (org-duration-to-minutes
                   (if effort-prop effort-prop "0")))
          (actual (org-clock-sum-current-item)))
     (cond ((= actual 0)
