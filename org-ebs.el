@@ -1,4 +1,4 @@
-;;; org-ebs.el --- Bypass that mental block when writing your papers. -*- lexical-binding: t -*-
+;;; org-ebs.el --- Bypass that mental block when writing your papers.
 
 ;; Copyright (C) 2017 Scott Weldon
 
